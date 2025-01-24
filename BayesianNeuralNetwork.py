@@ -7,10 +7,8 @@ class BayesianLayer(nn.Module):
     def __init__(self, in_features, out_features):
         super(BayesianLayer, self).__init__()
 
-        self.mu = nn.Parameter(
-            torch.zeros(in_features, out_features).uniform_(-0.6, 0.6)
-        )
-        self.rho = nn.Parameter(torch.zeros(in_features, out_features) - 3)
+        self.mu = nn.Parameter(torch.zeros(in_features, out_features))
+        self.rho = nn.Parameter(4 * torch.zeros(in_features, out_features))
 
     def forward(self, x):
         epsilon = torch.normal(mean=0.0, std=1.0, size=self.mu.shape)
